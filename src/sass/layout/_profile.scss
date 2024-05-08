@@ -1,0 +1,94 @@
+.profile {
+  width: calc(100% - 24rem);
+  height: 100vh;
+  margin-left: auto;
+
+  &__form {
+    &-container {
+      height: calc(100% - 12rem);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    background-color: #0b0d0e;
+    padding: 4rem 6rem;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 10px;
+
+    &-title {
+      &-container {
+        grid-column: 1 / -1;
+        height: 9rem;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+      }
+
+      font-size: 2.2rem;
+      margin-bottom: 0.8rem;
+
+      &-p {
+        font-size: 1.6rem;
+      }
+    }
+
+    &-input {
+      &-container {
+        display: grid;
+        grid-template-columns: repeat(2, auto);
+        justify-content: center;
+        gap: 3rem;
+        padding: 6rem 2rem;
+      }
+
+      width: 40rem;
+
+      &-email {
+        grid-column: 1/-1;
+        justify-self: center;
+      }
+    }
+
+    &-btns-container {
+      display: flex;
+      gap: 2rem;
+      padding-top: 4rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    &-btn {
+      width: 10rem;
+      margin: 0;
+
+      &-psw {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 20rem;
+        background-color: rgba(255, 255, 255, 0.2);
+        text-decoration: none;
+        color: inherit;
+        font-size: 1.8rem;
+        font-weight: 500;
+        border-radius: 4px;
+        margin-right: auto;
+        &:hover {
+          background-color: darken(
+            $color: rgba(255, 255, 255, 0.2),
+            $amount: 15%
+          );
+        }
+      }
+
+      &-cancel {
+        background-color: rgba(255, 255, 255, 0.2);
+        &:hover {
+          background-color: darken(
+            $color: rgba(255, 255, 255, 0.2),
+            $amount: 15%
+          );
+        }
+      }
+    }
+  }
+}
