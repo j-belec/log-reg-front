@@ -1,34 +1,31 @@
-import { useEffect, useState } from "react";
 import { Outlet } from "react-router-dom";
-import { useSelector } from "react-redux";
-import { NavLink } from "react-router-dom";
+import { useState } from "react";
+import { NavLink, useNavigate } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { loginActions } from "../store/store";
 import LogoutIcon from "@mui/icons-material/Logout";
 
 function Header() {
   const login = useSelector((state) => state.login.value);
-  const [actualUser, setActualUser] = useState({});
+  const actualUser = useSelector((state) => state.login.actualUser);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const [popUp, setPopUp] = useState(false);
 
-  useEffect(() => {
-    const fetchCurrentUser = async () => {
-      try {
-        const response = await fetch("http://localhost:3100/users/actual-user");
+  const logoutHandler = () => {
+    setPopUp(true);
+  };
 
-        if (response.ok) {
-          const user = await response.json();
-          console.log(user);
-          setActualUser(user);
-        } else {
-          console.error(
-            "Error al obtener el usuario actual:",
-            response.statusText
-          );
-        }
-      } catch (error) {
-        console.error("Error al realizar la solicitud:", error);
-      }
-    };
-    fetchCurrentUser();
-  }, [login]);
+  const noHandler = () => {
+    setPopUp(false);
+  };
+
+  const yesHandler = () => {
+    dispatch(loginActions.logout());
+    const user = { name: "", username: "", email: "" };
+    dispatch(loginActions.setActualUser(user));
+    navigate("/");
+  };
 
   return (
     <>
@@ -130,7 +127,32 @@ function Header() {
                 </div>
                 <div className="header__logout-email">{actualUser.email}</div>
               </div>
-              <LogoutIcon fontSize="large" className="header__logout-icon" />
+              <LogoutIcon
+                fontSize="large"
+                className="header__logout-icon"
+                onClick={logoutHandler}
+              />
+              {popUp && (
+                <div className="popup">
+                  <div className="popup__content">
+                    <p className="popup__content-p">Do you want to log out?</p>
+                    <div className="popup__content-btn-container">
+                      <button
+                        className="popup__content-btn"
+                        onClick={yesHandler}
+                      >
+                        Yes
+                      </button>
+                      <button
+                        className="popup__content-btn popup__content-btn-no"
+                        onClick={noHandler}
+                      >
+                        No
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              )}
             </div>
           )}
         </div>

@@ -13,6 +13,7 @@ import SecondPage from "./components/SecondPage";
 import FirstPage from "./components/FirstPage";
 import Profile, { profileLoader } from "./components/Profile";
 import Password from "./components/Password";
+import NotFound from "./components/NotFound";
 
 const router = createBrowserRouter([
   {
@@ -26,6 +27,7 @@ const router = createBrowserRouter([
       { path: "/profile/change-password", element: <Password /> },
       { path: "/first-page", element: <FirstPage /> },
       { path: "/second-page", element: <SecondPage /> },
+      { path: "*", element: <NotFound /> },
     ],
   },
 ]);

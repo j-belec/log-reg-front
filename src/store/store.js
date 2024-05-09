@@ -5,7 +5,11 @@ export const loginSlice = createSlice({
   name: "login",
   initialState: {
     value: false,
-    actualUser: {},
+    actualUser: {
+      name: "",
+      username: "",
+      email: "",
+    },
   },
   reducers: {
     login: (state) => {

@@ -3,6 +3,8 @@ import { useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import LoggedIn from "./LoggedIn";
 import useInputValidation from "../Hooks/useInputValidation";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function Password() {
   const login = useSelector((state) => state.login.value);
@@ -54,23 +56,21 @@ function Password() {
           }
         );
         const responseData = await response.json();
-        alert("Form submitted successfully!");
         if (response.ok) {
+          toast.success("Updated password! Redirecting to your profile");
           setIsLoading(false);
-          console.log(responseData);
-          alert(responseData.message + "Redirecting to your profile");
-          navigate("/profile");
+          setTimeout(() => {
+            navigate("/profile");
+          }, 3000);
         } else {
-          console.log(responseData);
           throw new Error(responseData.error);
         }
       } catch (error) {
-        // console.log(responseData);
         setIsLoading(false);
-        alert(error);
+        toast.error("" + error);
       }
     } else {
-      alert("Form is invalid! Please check the fields...");
+      toast.error("Form is invalid! Please check the fields");
     }
   };
 
@@ -146,6 +146,7 @@ function Password() {
           </div>
         </form>
       </div>
+      <ToastContainer position="top-right" autoClose={3000} />
     </section>
   );
 }

@@ -1,13 +1,17 @@
 import { useState } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { loginActions } from "../store/store";
 import { useLoaderData, Link } from "react-router-dom";
 import LoggedIn from "./LoggedIn";
 import useInputValidation from "../Hooks/useInputValidation";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function Profile() {
   const login = useSelector((state) => state.login.value);
   const [loading, setIsLoading] = useState(false);
   const actualUser = useLoaderData();
+  const dispatch = useDispatch();
 
   const regularExpressions = {
     name: /^[a-zA-ZÁ-ÿ\s]{2,50}$/,
@@ -67,7 +71,7 @@ function Profile() {
       surnameValue === actualUser.surname &&
       emailValue === actualUser.email
     ) {
-      alert("You have to chage at least one value in order to send the form!");
+      toast.error("You have to chage at least one value!");
       return;
     }
 
@@ -87,21 +91,22 @@ function Profile() {
         });
 
         const responseData = await response.json();
-        alert("Form submitted successfully!");
         if (response.ok) {
+          toast.success("Updated!");
           setIsLoading(false);
           console.log(responseData);
+          //cambio los valores en el actualUser de redux
+          dispatch(loginActions.setActualUser(data));
         } else {
           console.log(responseData);
           throw new Error(responseData.error);
         }
       } catch (error) {
-        // console.log(responseData);
         setIsLoading(false);
-        alert(error);
+        toast.error("" + error);
       }
     } else {
-      alert("Form is invalid! Please check the fields...");
+      toast.error("Form is invalid! Please check the fields");
     }
   };
 
@@ -203,6 +208,7 @@ function Profile() {
           </div>
         </form>
       </div>
+      <ToastContainer position="top-right" autoClose={3000} />
     </section>
   );
 }
