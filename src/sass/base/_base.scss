@@ -58,3 +58,71 @@ button[disabled] {
     cursor: not-allowed;
   }
 }
+
+.popup {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  backdrop-filter: blur(10px);
+  &__content {
+    height: 20rem;
+    width: 50rem;
+    background-color: #000;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 4rem;
+
+    &-p {
+      font-size: 2.2rem;
+      font-weight: 500;
+    }
+
+    &-btn {
+      &-container {
+        display: flex;
+        align-items: center;
+        gap: 5rem;
+      }
+
+      font-size: 1.8rem;
+      font-weight: 500;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      background-color: #0b6bcb;
+      padding: 1rem 3rem;
+      &:hover {
+        cursor: pointer;
+        background-color: darken($color: #0b6bcb, $amount: 10%);
+      }
+
+      &-no {
+        background-color: rgba(255, 255, 255, 0.2);
+        &:hover {
+          background-color: darken(
+            $color: rgba(255, 255, 255, 0.2),
+            $amount: 15%
+          );
+        }
+      }
+    }
+  }
+}
+
+.Toastify__toast--success {
+  font-size: 1.6rem !important;
+}
+
+.Toastify__toast--error {
+  font-size: 1.6rem !important;
+}

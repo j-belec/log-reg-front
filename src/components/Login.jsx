@@ -3,6 +3,8 @@ import { useDispatch } from "react-redux";
 import { loginActions } from "../store/store";
 import { useNavigate } from "react-router-dom";
 import useInputValidation from "../Hooks/useInputValidation";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function Login() {
   const [loading, setIsLoading] = useState(false);
@@ -59,22 +61,28 @@ function Login() {
         const responseData = await response.json();
 
         if (response.ok) {
+          const user = {
+            name: responseData.actualUser.name,
+            surname: responseData.actualUser.surname,
+            email: responseData.actualUser.email,
+          };
+          dispatch(loginActions.setActualUser(user));
           setIsLoading(false);
           resetEmail();
           resetPassword();
           dispatch(loginActions.login());
           navigate("/");
         } else {
-          console.log(responseData.error);
+          // console.log(responseData.error);
           setIsLoading(false);
           throw new Error(responseData.error);
         }
       } catch (error) {
-        console.error("Error submitting form:", error);
-        alert(error);
+        // console.log(error);
+        toast.error("" + error);
       }
     } else {
-      alert("Form is invalid! Please check the fields...");
+      toast.error("Form is invalid! Please check the fields");
     }
   };
 
@@ -124,6 +132,7 @@ function Login() {
           </button>
         </form>
       </div>
+      <ToastContainer position="top-right" autoClose={3000} />
     </section>
   );
 }

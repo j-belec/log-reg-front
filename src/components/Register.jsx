@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import useInputValidation from "../Hooks/useInputValidation";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function Register() {
   const [loading, setIsLoading] = useState(false);
@@ -77,25 +79,21 @@ function Register() {
 
         if (response.ok) {
           setIsLoading(false);
-          alert("Form submitted successfully! Redirecting to login");
-          const responseData = await response.json();
-          console.log(responseData);
-          navigate("/login");
-          resetName();
-          resetSurname();
-          resetEmail();
-          resetPassword();
+          toast.success(
+            "You have successfully registered! Redirecting to login"
+          );
+          setTimeout(() => {
+            navigate("/login");
+          }, 3000);
         } else {
           throw new Error("Failed to submit form");
         }
       } catch (error) {
         setIsLoading(false);
-        alert(
-          "An error occurred while submitting the form. Please try again later."
-        );
+        toast.error("" + error);
       }
     } else {
-      alert("Form is invalid! Please check the fields...");
+      toast.error("Form is invalid! Please check the fields");
     }
   };
 
@@ -177,6 +175,7 @@ function Register() {
           </button>
         </form>
       </div>
+      <ToastContainer position="top-right" autoClose={3000} />
     </div>
   );
 }
