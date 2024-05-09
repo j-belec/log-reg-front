@@ -52,11 +52,14 @@ function Login() {
 
       try {
         setIsLoading(true);
-        const response = await fetch("http://localhost:3100/users/login", {
-          method: "POST",
-          body: JSON.stringify(data),
-          headers: { "content-type": "application/json" },
-        });
+        const response = await fetch(
+          "https://log-reg-back.onrender.com/users/login",
+          {
+            method: "POST",
+            body: JSON.stringify(data),
+            headers: { "content-type": "application/json" },
+          }
+        );
 
         const responseData = await response.json();
 

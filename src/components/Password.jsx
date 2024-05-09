@@ -48,7 +48,7 @@ function Password() {
       try {
         setIsLoading(true);
         const response = await fetch(
-          "http://localhost:3100/users/editUser/change-password",
+          "https://log-reg-back.onrender.com/users/editUser/change-password",
           {
             method: "PUT",
             body: JSON.stringify(data),

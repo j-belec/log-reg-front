@@ -71,11 +71,14 @@ function Register() {
 
       try {
         setIsLoading(true);
-        const response = await fetch("http://localhost:3100/users/register", {
-          method: "POST",
-          body: JSON.stringify(data),
-          headers: { "content-type": "application/json" },
-        });
+        const response = await fetch(
+          "https://log-reg-back.onrender.com/users/register",
+          {
+            method: "POST",
+            body: JSON.stringify(data),
+            headers: { "content-type": "application/json" },
+          }
+        );
 
         if (response.ok) {
           setIsLoading(false);

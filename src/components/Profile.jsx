@@ -84,11 +84,14 @@ function Profile() {
 
       try {
         setIsLoading(true);
-        const response = await fetch("http://localhost:3100/users/editUser", {
-          method: "PUT",
-          body: JSON.stringify(data),
-          headers: { "content-type": "application/json" },
-        });
+        const response = await fetch(
+          "https://log-reg-back.onrender.com/users/editUser",
+          {
+            method: "PUT",
+            body: JSON.stringify(data),
+            headers: { "content-type": "application/json" },
+          }
+        );
 
         const responseData = await response.json();
         if (response.ok) {
@@ -217,7 +220,9 @@ export default Profile;
 
 export async function profileLoader() {
   try {
-    const response = await fetch("http://localhost:3100/users/actual-user");
+    const response = await fetch(
+      "https://log-reg-back.onrender.com/users/actual-user"
+    );
 
     if (response.ok) {
       const user = await response.json();
